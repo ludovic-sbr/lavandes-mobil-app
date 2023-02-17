@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobilapp/features/users/components/molecules/user_list_card.dart';
 
+import '../../../../common/components/error_displayer.dart';
+import '../../../../common/components/loader.dart';
 import '../../api.dart';
 import '../../models/user.dart';
 
@@ -31,11 +33,11 @@ class _ListUserState extends State<ListUser> {
           ];
         } else if (snapshot.hasError) {
           children = <Widget>[
-            Text('Erreur: ${snapshot.error}'),
+            ErrorDisplayer(snapshot.error as String),
           ];
         } else {
-          children = const <Widget>[
-            Text('Chargement...'),
+          children = <Widget>[
+            Loader(),
           ];
         }
         return Center(

@@ -5,6 +5,10 @@ import '../../pages/list_location_page.dart';
 import '../../pages/list_user_page.dart';
 
 class Layout extends StatefulWidget {
+  final int? pageId;
+
+  Layout(this.pageId, {Key? key}) : super(key: key);
+
   @override
   _LayoutState createState() => _LayoutState();
 }
@@ -13,7 +17,7 @@ class _LayoutState extends State<Layout> {
   final List<Map<String, dynamic>> _pages = [
     {
       'page': ListUserPage(),
-      'title': 'Utilisateurs',
+      'title': 'Vacanciers',
     },
     {
       'page': ListReservationPage(),
@@ -26,6 +30,19 @@ class _LayoutState extends State<Layout> {
   ];
   int _selectedPageIndex = 0;
 
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.pageId != null) {
+      print(widget.pageId!);
+      setState(() {
+        _selectedPageIndex = widget.pageId!;
+      });
+    }
+
+  }
+
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
@@ -37,17 +54,18 @@ class _LayoutState extends State<Layout> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
+        backgroundColor: Colors.blue[900],
       ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         currentIndex: _selectedPageIndex,
         // type: BottomNavigationBarType.fixed,
-        items: [
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
             icon: Icon(Icons.person),
-            label: "Utilisateurs",
+            label: "Vacanciers",
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
