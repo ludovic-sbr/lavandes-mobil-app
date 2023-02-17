@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobilapp/common/components/error_displayer.dart';
 import 'package:mobilapp/features/reservations/components/molecules/reservation_list_card.dart';
 import 'package:mobilapp/features/reservations/models/reservation.dart';
 
+import '../../../../common/components/loader.dart';
 import '../../api.dart';
 
 class ListReservation extends StatefulWidget {
@@ -32,11 +34,11 @@ class _ListReservationState extends State<ListReservation> {
           ];
         } else if (snapshot.hasError) {
           children = <Widget>[
-            Text('Erreur: ${snapshot.error}'),
+            ErrorDisplayer(snapshot.error as String),
           ];
         } else {
-          children = const <Widget>[
-            Text('Chargement...'),
+          children = <Widget>[
+            Loader(),
           ];
         }
         return Center(
