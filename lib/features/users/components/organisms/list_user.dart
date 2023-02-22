@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobilapp/features/users/components/molecules/user_list_card.dart';
 
-import '../../../../common/components/error_displayer.dart';
 import '../../../../common/components/loader.dart';
+import '../../../../common/components/page_error.dart';
 import '../../api.dart';
 import '../../models/user.dart';
 
@@ -33,7 +33,7 @@ class _ListUserState extends State<ListUser> {
           ];
         } else if (snapshot.hasError) {
           children = <Widget>[
-            ErrorDisplayer(snapshot.error as String),
+            PageError(snapshot.error as String)
           ];
         } else {
           children = <Widget>[

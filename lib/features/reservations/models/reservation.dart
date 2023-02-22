@@ -1,6 +1,8 @@
 import '../../locations/models/location.dart';
 import '../../users/models/user.dart';
 
+enum ReservationStatusEnum { OPEN, COMPLETE, CANCELED }
+
 class Reservation {
   final int id;
   final User user;
@@ -15,7 +17,7 @@ class Reservation {
   final int total_price;
   final int night_number;
   final String? stripe_session_id;
-  final String status;
+  final ReservationStatusEnum status;
   final String? user_contact;
   final String? user_comment;
 
@@ -52,7 +54,7 @@ class Reservation {
       total_price: json['total_price'] as int,
       night_number: json['night_number'] as int,
       stripe_session_id: json['stripe_session_id'],
-      status: json['status'] as String,
+      status: ReservationStatusEnum.values.byName(json['status']),
       user_comment: json['user_comment'],
       user_contact: json['user_contact'],
     );

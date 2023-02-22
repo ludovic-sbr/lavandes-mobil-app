@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:mobilapp/common/models/file.dart';
 
 class Location {
@@ -64,45 +62,4 @@ class Location {
       slot_remaining: json['slot_remaining'] as int,
     );
   }
-}
-
-class LocationRequest {
-  final int? id;
-  final String? name;
-  final Uint8List? image;
-  final String? stripeProductId;
-  final String? description;
-  final bool? parking;
-  final bool? kitchen;
-  final bool? wifi;
-  final bool? sanitary;
-  final bool? heater;
-  final bool? air_conditioner;
-  final bool? terrace;
-  final bool? barbecue;
-  final int? surface;
-  final int? max_persons;
-  final int? price_per_night;
-  final int? bedrooms;
-  final int? slot_remaining;
-
-  LocationRequest(
-      {this.id,
-      this.name,
-      this.image,
-      this.stripeProductId,
-      this.description,
-      this.parking,
-      this.kitchen,
-      this.wifi,
-      this.sanitary,
-      this.heater,
-      this.air_conditioner,
-      this.terrace,
-      this.barbecue,
-      this.surface,
-      this.max_persons,
-      this.price_per_night,
-      this.bedrooms,
-      this.slot_remaining});
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobilapp/common/components/search_bar.dart';
 
-import '../../../../common/components/error_displayer.dart';
 import '../../../../common/components/loader.dart';
+import '../../../../common/components/page_error.dart';
 import '../../../../pages/create_location_page.dart';
 import '../../api.dart';
 import '../../models/location.dart';
@@ -36,7 +36,8 @@ class _ListLocationState extends State<ListLocation> {
   void updateSearchParams(String newSearchParams) {
     setState(() {
       searchParams.text = newSearchParams;
-      searchParams.selection = TextSelection.fromPosition(TextPosition(offset: searchParams.text.length));
+      searchParams.selection = TextSelection.fromPosition(
+          TextPosition(offset: searchParams.text.length));
     });
   }
 
@@ -56,13 +57,14 @@ class _ListLocationState extends State<ListLocation> {
           SizedBox(
             child: FutureBuilder<List<Location>>(
               future: dataFuture,
-              builder: (BuildContext context, AsyncSnapshot<List<Location>> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Location>> snapshot) {
                 List<Widget> children;
                 if (snapshot.hasData) {
                   children = <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget> [
+                      children: <Widget>[
                         SearchBar(searchParams, updateSearchParams),
                       ],
                     ),
@@ -75,8 +77,10 @@ class _ListLocationState extends State<ListLocation> {
                         return SizedBox(height: 4);
                       },
                       itemBuilder: (ctx, index) {
-                        if (snapshot.data![index].name.toLowerCase().startsWith(searchParams.value.text.toLowerCase())) {
-                          return LocationListCard(snapshot.data![index], refreshData);
+                        if (snapshot.data![index].name.toLowerCase().startsWith(
+                            searchParams.value.text.toLowerCase())) {
+                          return LocationListCard(
+                              snapshot.data![index], refreshData);
                         } else {
                           return Container();
                         }
@@ -85,7 +89,7 @@ class _ListLocationState extends State<ListLocation> {
                   ];
                 } else if (snapshot.hasError) {
                   children = <Widget>[
-                    ErrorDisplayer(snapshot.error as String),
+                    PageError(snapshot.error as String),
                   ];
                 } else {
                   children = <Widget>[
@@ -105,7 +109,8 @@ class _ListLocationState extends State<ListLocation> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CreateLocationPage())).then((_) => refreshData()),
+                MaterialPageRoute(builder: (context) => CreateLocationPage()))
+            .then((_) => refreshData()),
         backgroundColor: Colors.green,
         child: Icon(Icons.add),
       ),

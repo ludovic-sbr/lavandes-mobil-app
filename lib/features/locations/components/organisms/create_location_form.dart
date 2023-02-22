@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
+import '../../../../common/components/error_displayer.dart';
 import '../../api.dart';
 
 class CreateLocationForm extends StatefulWidget {
@@ -59,7 +62,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
     barbecue = false;
   }
 
-  void handleSubmit(BuildContext ctx) async {
+  dynamic handleSubmit(BuildContext ctx) async {
     if (!_formKey.currentState!.validate()) return;
 
     _formKey.currentState!.save();
@@ -83,9 +86,15 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
       'barbecue': barbecue.toString(),
     };
 
-    StreamedResponse res = await LocationApi().create(data, file);
+    Response res = await LocationApi().create(data, file);
 
-    if (res.statusCode == 201 && mounted) Navigator.pop(context);
+    if (res.statusCode != 201 && mounted) {
+      return ScaffoldMessenger.of(context).showSnackBar(
+          ErrorDisplayer.buildErrorSnackbar(context, jsonDecode(utf8.decode(res.bodyBytes))['message'])
+      );
+    }
+
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -97,6 +106,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
           TextFormField(
             decoration: InputDecoration(
               labelText: 'Nom *',
+              icon: Icon(Icons.perm_identity),
             ),
             controller: nameController,
             validator: (value) {
@@ -110,6 +120,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: stripeProductIdController,
             decoration: const InputDecoration(
               labelText: 'Id Stripe du produit *',
+              icon: Icon(Icons.credit_card),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -122,6 +133,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: descriptionController,
             decoration: const InputDecoration(
               labelText: 'Description *',
+              icon: Icon(Icons.text_fields),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -134,6 +146,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: surfaceController,
             decoration: const InputDecoration(
               labelText: 'Surface *',
+              icon: Icon(Icons.density_large),
             ),
             keyboardType: TextInputType.number,
             validator: (value) {
@@ -147,6 +160,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: maxPersonsController,
             decoration: const InputDecoration(
               labelText: 'Nombre de personnes *',
+              icon: Icon(Icons.reduce_capacity),
             ),
             keyboardType: TextInputType.number,
             validator: (value) {
@@ -160,6 +174,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: pricePerNightController,
             decoration: const InputDecoration(
               labelText: 'Prix par nuit *',
+              icon: Icon(Icons.money),
             ),
             keyboardType: TextInputType.number,
             validator: (value) {
@@ -173,6 +188,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: bedroomsController,
             decoration: const InputDecoration(
               labelText: 'Nombre de chambres *',
+              icon: Icon(Icons.bed),
             ),
             keyboardType: TextInputType.number,
             validator: (value) {
@@ -186,6 +202,7 @@ class _CreateLocationFormState extends State<CreateLocationForm> {
             controller: slotRemainingController,
             decoration: const InputDecoration(
               labelText: 'Total d\'emplacements disponibles *',
+                icon: Icon(Icons.add_home)
             ),
             keyboardType: TextInputType.number,
             validator: (value) {

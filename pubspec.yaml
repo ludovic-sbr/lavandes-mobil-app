@@ -16,6 +16,7 @@ dependencies:
   form_data: ^0.0.1-nullsafety.1
   mime: ^1.0.4
   loading_animation_widget: ^1.2.0+4
+  badges: ^3.0.2
 
 dev_dependencies:
   flutter_test:
