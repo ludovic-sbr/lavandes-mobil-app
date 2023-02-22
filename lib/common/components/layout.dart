@@ -35,12 +35,10 @@ class _LayoutState extends State<Layout> {
     super.initState();
 
     if (widget.pageId != null) {
-      print(widget.pageId!);
       setState(() {
         _selectedPageIndex = widget.pageId!;
       });
     }
-
   }
 
   void _selectPage(int index) {

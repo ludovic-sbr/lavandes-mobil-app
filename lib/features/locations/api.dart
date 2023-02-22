@@ -9,11 +9,9 @@ import '../../common/services/index.dart';
 import 'models/location.dart';
 
 class LocationApi {
-  final apiUrl = 'https://api.camping-lavandes.com/api/location';
-
   Future<List<Location>> getAll() async {
     var res = await get(
-      Uri.parse(apiUrl),
+      Uri.parse('$apiUrl/location'),
       headers: getHeaders(),
     );
 
@@ -31,7 +29,7 @@ class LocationApi {
 
   Future<Location> getById(int locationId) async {
     var res = await get(
-      Uri.parse('$apiUrl/$locationId'),
+      Uri.parse('$apiUrl/location/$locationId'),
       headers: getHeaders(),
     );
 
@@ -45,10 +43,11 @@ class LocationApi {
     return Location.fromJson(data);
   }
 
-  Future<StreamedResponse> create(Map<String, dynamic> location, PlatformFile file) async {
+  Future<Response> create(
+      Map<String, dynamic> location, PlatformFile file) async {
     var request = MultipartRequest(
       'POST',
-      Uri.parse(apiUrl),
+      Uri.parse('$apiUrl/location'),
     );
 
     request.headers.addAll({
@@ -79,13 +78,13 @@ class LocationApi {
 
     var res = await request.send();
 
-    return res;
+    return await Response.fromStream(res);
   }
 
-  Future<StreamedResponse> edit(int id, Map<String, dynamic> location) async {
+  Future<Response> edit(int locationId, Map<String, dynamic> location) async {
     var request = MultipartRequest(
       'PATCH',
-      Uri.parse('$apiUrl/$id'),
+      Uri.parse('$apiUrl/location/$locationId'),
     );
 
     request.headers.addAll({
@@ -111,19 +110,21 @@ class LocationApi {
     request.fields['barbecue'] = location['barbecue'];
 
     if (location['image'] != null) {
-      request.files.add(MultipartFile.fromBytes('image', location['image'].bytes!,
+      request.files.add(MultipartFile.fromBytes(
+          'image', location['image'].bytes!,
           filename: location['image'].name,
-          contentType: MediaType.parse(lookupMimeType(location['image'].name)!)));
+          contentType:
+              MediaType.parse(lookupMimeType(location['image'].name)!)));
     }
 
     var res = await request.send();
 
-    return res;
+    return await Response.fromStream(res);
   }
 
-  Future<Response> deleteById(int id) async {
+  Future<Response> deleteById(int locationId) async {
     var res = await delete(
-      Uri.parse('$apiUrl/$id'),
+      Uri.parse('$apiUrl/location/$locationId'),
       headers: getHeaders(),
     );
 

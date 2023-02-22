@@ -30,22 +30,20 @@ class LocationListOptions extends StatelessWidget {
       this.air_conditioner,
       this.terrace,
       this.barbecue,
-      {Key? key}
-  ) : super(key: key);
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        if (parking) Icon(Icons.local_parking_sharp),
-        if (kitchen) Icon(Icons.kitchen),
-        if (wifi) Icon(Icons.wifi),
-        if (sanitary) Icon(Icons.bathtub),
-        if (heater) Icon(Icons.local_fire_department),
-        if (air_conditioner) Icon(Icons.air_sharp),
-        if (terrace) Icon(Icons.brightness_6),
-        if (barbecue) Icon(Icons.outdoor_grill),
-      ]
-    );
+    return Row(children: <Widget>[
+      if (parking) Icon(Icons.local_parking_sharp),
+      if (kitchen) Icon(Icons.kitchen),
+      if (wifi) Icon(Icons.wifi),
+      if (sanitary) Icon(Icons.bathtub),
+      if (heater) Icon(Icons.local_fire_department),
+      if (air_conditioner) Icon(Icons.air_sharp),
+      if (terrace) Icon(Icons.brightness_6),
+      if (barbecue) Icon(Icons.outdoor_grill),
+    ]);
   }
 }

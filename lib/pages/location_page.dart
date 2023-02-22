@@ -12,7 +12,8 @@ class LocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location - ${String.fromCharCodes(Runes(currentLocation.name))}'),
+        title: Text(
+            'Location - ${String.fromCharCodes(Runes(currentLocation.name))}'),
       ),
       body: LocationDetail(currentLocation),
     );

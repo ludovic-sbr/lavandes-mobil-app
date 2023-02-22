@@ -14,7 +14,8 @@ class EditLocationPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Editer une location'),
       ),
-      body: SingleChildScrollView(child: Padding(
+      body: SingleChildScrollView(
+          child: Padding(
         padding: EdgeInsets.all(8.0),
         child: EditLocationForm(currentLocation),
       )),

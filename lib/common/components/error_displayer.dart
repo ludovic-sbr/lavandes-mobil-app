@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 
-class ErrorDisplayer extends StatelessWidget {
-  final String? errorMessage;
+class ErrorDisplayer {
+  ErrorDisplayer._();
 
-  ErrorDisplayer(this.errorMessage, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Align(
-          alignment: Alignment.center,
-          child: Text(
-              errorMessage != null ?
-              errorMessage! :
-              'Une erreur est survenue lors du chargement de vos données.')
-      ),
+  static buildErrorSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: Container(
+              padding: EdgeInsets.all(16),
+              height: 90,
+              decoration: BoxDecoration(
+                  color: Color(0xFFC72C41),
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+              ),
+              child: Text(message),
+            )
+        ),
     );
   }
 }

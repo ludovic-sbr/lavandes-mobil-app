@@ -23,8 +23,10 @@ class MyApp extends StatelessWidget {
       initialRoute: ListUserPage.routeName,
       routes: {
         ListUserPage.routeName: (context) => Layout(ListUserPage.routeId),
-        ListReservationPage.routeName: (context) => Layout(ListReservationPage.routeId),
-        ListLocationPage.routeName: (context) => Layout(ListLocationPage.routeId)
+        ListReservationPage.routeName: (context) =>
+            Layout(ListReservationPage.routeId),
+        ListLocationPage.routeName: (context) =>
+            Layout(ListLocationPage.routeId)
       },
     );
   }

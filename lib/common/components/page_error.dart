@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-class Loader extends StatelessWidget {
-  Loader({Key? key}) : super(key: key);
+class PageError extends StatelessWidget {
+  final String message;
+
+  const PageError(this.message, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,8 @@ class Loader extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Align(
-          alignment: Alignment.center, child: CircularProgressIndicator()),
+          alignment: Alignment.center, child: Text(message)
+      ),
     );
   }
 }

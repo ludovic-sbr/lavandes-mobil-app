@@ -26,51 +26,59 @@ class LocationListCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ListTile(
-            leading: CircleAvatar(backgroundImage: NetworkImage(currentLocation.image.publicUrl)), // No matter how big it is, it won't overflow),
-            title: Text('${currentLocation.name} - ${currentLocation.max_persons} places'),
+            leading: CircleAvatar(
+                backgroundImage: NetworkImage(currentLocation.image.publicUrl)),
+            title: Text(
+                '${currentLocation.name} - ${currentLocation.max_persons} places'),
             subtitle: Text(currentLocation.stripeProductId),
             trailing: TextButton(
-              child: Icon(Icons.add, color: Colors.grey),
-              onPressed: () => {
-                showModalBottomSheet<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SizedBox(
-                      height: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          TextButton(
-                            child: Icon(Icons.remove_red_eye, color: Colors.grey),
-                            onPressed: () => {
-                              Navigator.pop(context),
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (ctx) => LocationPage(currentLocation))),
-                            }
-                          ),
-                          TextButton(
-                            onPressed: () => {
-                              Navigator.pop(context),
-                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => EditLocationPage(currentLocation))).then((_) => refreshData()),
-                            },
-                            child: Icon(Icons.edit, color: Colors.blueGrey),
-                          ),
-                          TextButton(
-                            child: Icon(Icons.delete_forever, color: Colors.red),
-                            onPressed: () => {
-                              Navigator.pop(context),
-                              handleDelete(context)
-                            },
-                          ),
-                        ],
-                      )
-                    );
-                  }
-                )
-              }
-            ),
+                child: Icon(Icons.add, color: Colors.grey),
+                onPressed: () => {
+                      showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SizedBox(
+                                height: 100,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextButton(
+                                        child: Icon(Icons.remove_red_eye,
+                                            color: Colors.grey),
+                                        onPressed: () => {
+                                              Navigator.pop(context),
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (ctx) =>
+                                                          LocationPage(
+                                                              currentLocation))),
+                                            }),
+                                    TextButton(
+                                      onPressed: () => {
+                                        Navigator.pop(context),
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                                builder: (ctx) =>
+                                                    EditLocationPage(
+                                                        currentLocation)))
+                                            .then((_) => refreshData()),
+                                      },
+                                      child: Icon(Icons.edit,
+                                          color: Colors.blueGrey),
+                                    ),
+                                    TextButton(
+                                      child: Icon(Icons.delete_forever,
+                                          color: Colors.red),
+                                      onPressed: () => {
+                                        Navigator.pop(context),
+                                        handleDelete(context)
+                                      },
+                                    ),
+                                  ],
+                                ));
+                          })
+                    }),
           ),
         ],
       ),
