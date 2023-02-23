@@ -61,34 +61,40 @@ class _ListReservationState extends State<ListReservation> {
                   AsyncSnapshot<List<Reservation>> snapshot) {
                 List<Widget> children;
                 if (snapshot.hasData) {
-                  children = <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        SearchBar(searchParams, updateSearchParams),
-                      ],
-                    ),
-                    ListView.separated(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(height: 4);
-                      },
-                      itemBuilder: (ctx, index) {
-                        if (snapshot.data![index].reservation_key
-                            .toLowerCase()
-                            .startsWith(
-                                searchParams.value.text.toLowerCase())) {
-                          return ReservationListCard(
-                              snapshot.data![index], refreshData);
-                        } else {
-                          return Container();
-                        }
-                      },
-                    )
-                  ];
+                  if (snapshot.data!.isEmpty) {
+                    children = <Widget>[
+                      PageError('Aucune donnée à afficher.')
+                    ];
+                  } else {
+                    children = <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SearchBar(searchParams, updateSearchParams, 'Recherchez une clé...'),
+                        ],
+                      ),
+                      ListView.separated(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        physics: NeverScrollableScrollPhysics(),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(height: 4);
+                        },
+                        itemBuilder: (ctx, index) {
+                          if (snapshot.data![index].reservation_key
+                              .toLowerCase()
+                              .contains(
+                              searchParams.value.text.toLowerCase())) {
+                            return ReservationListCard(
+                                snapshot.data![index], refreshData);
+                          } else {
+                            return Container();
+                          }
+                        },
+                      )
+                    ];
+                  }
                 } else if (snapshot.hasError) {
                   children = <Widget>[
                     PageError(snapshot.error as String)

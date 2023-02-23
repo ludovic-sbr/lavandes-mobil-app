@@ -23,4 +23,28 @@ class UserApi {
         .map<User>((user) => User.fromJson(user))
         .toList();
   }
+
+  Future<Response> edit(int userId, Map<String, dynamic> reservation) async {
+    var res = patch(
+        Uri.parse('$apiUrl/user/$userId'),
+        headers: getHeaders(),
+        body: jsonEncode({
+          'firstname': reservation['firstname'],
+          'lastname': reservation['lastname'],
+          'email': reservation['email'],
+          'roleName': reservation['roleName'],
+        })
+    );
+
+    return res;
+  }
+
+  Future<Response> deleteById(int userId) async {
+    var res = await delete(
+      Uri.parse('$apiUrl/user/$userId'),
+      headers: getHeaders(),
+    );
+
+    return res;
+  }
 }

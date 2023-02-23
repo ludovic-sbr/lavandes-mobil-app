@@ -83,8 +83,6 @@ class _EditReservationFormState extends State<EditReservationForm> {
 
     _formKey.currentState!.save();
 
-    print(from.toIso8601String());
-
     Map<String, dynamic> data = {
       'user_id': userController.text,
       'location_id': locationController.text,
