@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   final Function updateSearchParams;
   final TextEditingController searchParams;
+  final String label;
 
-  SearchBar(this.searchParams, this.updateSearchParams, {Key? key})
+  SearchBar(this.searchParams, this.updateSearchParams, this.label, {Key? key})
       : super(key: key);
 
   @override
@@ -16,7 +17,7 @@ class SearchBar extends StatelessWidget {
           onChanged: (val) => updateSearchParams(val),
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            hintText: 'Rechercher dans la liste...',
+            hintText: label,
           )),
     );
   }

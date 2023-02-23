@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mobilapp/pages/edit_location_page.dart';
 
+import '../../../../common/components/error_displayer.dart';
 import '../../../../pages/location_page.dart';
 import '../../api.dart';
 import '../../models/location.dart';
@@ -10,13 +13,21 @@ class LocationListCard extends StatelessWidget {
   final Location currentLocation;
   final Function refreshData;
 
-  const LocationListCard(this.currentLocation, this.refreshData, {super.key});
+  LocationListCard(this.currentLocation, this.refreshData, {super.key});
 
   void handleDelete(BuildContext context, [bool mounted = true]) async {
     Response res = await LocationApi().deleteById(currentLocation.id);
 
-    if (res.statusCode == 200 && mounted) {
+    if (res.statusCode != 200 && mounted) {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+          ErrorDisplayer.buildErrorSnackbar(context, jsonDecode(utf8.decode(res.bodyBytes))['message'])
+      );
+    }
+
+    if (mounted) {
       refreshData();
+      Navigator.pop(context);
     }
   }
 
@@ -71,7 +82,6 @@ class LocationListCard extends StatelessWidget {
                                       child: Icon(Icons.delete_forever,
                                           color: Colors.red),
                                       onPressed: () => {
-                                        Navigator.pop(context),
                                         handleDelete(context)
                                       },
                                     ),

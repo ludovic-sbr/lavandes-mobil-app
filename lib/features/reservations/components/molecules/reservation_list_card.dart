@@ -13,19 +13,23 @@ class ReservationListCard extends StatelessWidget {
   final Reservation currentReservation;
   final Function refreshData;
 
-  const ReservationListCard(this.currentReservation, this.refreshData,
+  ReservationListCard(this.currentReservation, this.refreshData,
       {super.key});
 
   dynamic handleDelete(BuildContext context, [bool mounted = true]) async {
     Response res = await ReservationApi().deleteById(currentReservation.id);
 
     if (res.statusCode != 200 && mounted) {
-      return ScaffoldMessenger.of(context).showSnackBar(
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
           ErrorDisplayer.buildErrorSnackbar(context, jsonDecode(utf8.decode(res.bodyBytes))['message'])
       );
     }
 
-    if (mounted) refreshData();
+    if (mounted) {
+      refreshData();
+      Navigator.pop(context);
+    }
   }
 
   @override
@@ -94,7 +98,6 @@ class ReservationListCard extends StatelessWidget {
                                       child: Icon(Icons.delete_forever,
                                           color: Colors.red),
                                       onPressed: () => {
-                                        Navigator.pop(context),
                                         handleDelete(context)
                                       },
                                     ),
