@@ -12,7 +12,7 @@ class LocationApi {
   Future<List<Location>> getAll() async {
     var res = await get(
       Uri.parse('$apiUrl/location'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     if (res.statusCode != 200) {
@@ -30,7 +30,7 @@ class LocationApi {
   Future<Location> getById(int locationId) async {
     var res = await get(
       Uri.parse('$apiUrl/location/$locationId'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     if (res.statusCode != 200) {
@@ -51,7 +51,7 @@ class LocationApi {
     );
 
     request.headers.addAll({
-      ...getHeaders(),
+      ...await getHeaders(),
       'Content-Type': 'multipart/form-data',
     });
 
@@ -88,7 +88,7 @@ class LocationApi {
     );
 
     request.headers.addAll({
-      ...getHeaders(),
+      ...await getHeaders(),
       'Content-Type': 'multipart/form-data',
     });
 
@@ -125,7 +125,7 @@ class LocationApi {
   Future<Response> deleteById(int locationId) async {
     var res = await delete(
       Uri.parse('$apiUrl/location/$locationId'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     return res;
