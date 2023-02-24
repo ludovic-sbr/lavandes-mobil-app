@@ -24,6 +24,22 @@ class UserApi {
         .toList();
   }
 
+  Future<User> getMyself() async {
+    var res = await get(
+      Uri.parse('$apiUrl/user/me'),
+      headers: await getHeaders(),
+    );
+
+    if (res.statusCode != 200) {
+      throw json.decode(res.body)['message'].toString();
+    }
+
+    var jsonResponse = json.decode(res.body);
+    var data = jsonResponse['user'];
+
+    return User.fromJson(data);
+  }
+
   Future<Response> edit(int userId, Map<String, dynamic> reservation) async {
     var res = patch(
         Uri.parse('$apiUrl/user/$userId'),
