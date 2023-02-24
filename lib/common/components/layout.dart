@@ -5,6 +5,7 @@ import 'package:mobilapp/pages/login_page.dart';
 
 import '../../pages/list_location_page.dart';
 import '../../pages/list_user_page.dart';
+import '../../pages/profile_page.dart';
 
 class Layout extends StatefulWidget {
   final int? pageId;
@@ -61,6 +62,11 @@ class _LayoutState extends State<Layout> {
         title: Text(_pages[_selectedPageIndex]['title']),
         backgroundColor: Colors.blue[900],
         actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Compte',
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage())),
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Déconnexion',
