@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobilapp/features/authentication/service.dart';
 import 'package:mobilapp/pages/list_reservation_page.dart';
+import 'package:mobilapp/pages/login_page.dart';
 
 import '../../pages/list_location_page.dart';
 import '../../pages/list_user_page.dart';
@@ -47,12 +49,24 @@ class _LayoutState extends State<Layout> {
     });
   }
 
+  void logout() {
+    Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+    AuthService().logoutUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
         backgroundColor: Colors.blue[900],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Déconnexion',
+            onPressed: () => logout(),
+          ),
+        ]
       ),
       body: _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(

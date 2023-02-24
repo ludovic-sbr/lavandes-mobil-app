@@ -1,6 +1,7 @@
-Map<String, String> getHeaders() {
-  var token =
-      'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb2JyZXJvLmx1ZG92aWNAZ21haWwuY29tIiwiaWF0IjoxNjc3MDc1NTQxLCJleHAiOjE2NzcxNjE5NDEsImlzcyI6ImdhcmRvbnMifQ.St5-HmF32peVmr2WHiIw0ysxTlfabjvQOhGEaCfUfyJY7PbjzmzWDjgDrOS17PL6uUEi6KuCuLIYkyuR1X22jg';
+import 'package:mobilapp/common/services/secure_storage.dart';
+
+Future<Map<String, String>> getHeaders() async {
+  String token = await secureStorage.readSecureData('token');
 
   return {
     'Authorization': 'Bearer $token',

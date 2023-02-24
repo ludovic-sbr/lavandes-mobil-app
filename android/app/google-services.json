@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "347850379872",
+    "project_id": "lavandes-mobilapp",
+    "storage_bucket": "lavandes-mobilapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347850379872:android:ea561e0fe2dfbef5146905",
+        "android_client_info": {
+          "package_name": "com.example.mobilapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347850379872-92vpa7rnbn5vj68qbj1s09a7m7pooup2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobilapp",
+            "certificate_hash": "0f2abf87cffa986124dddb9ed0ecf00db913fa49"
+          }
+        },
+        {
+          "client_id": "347850379872-9f6mhms0ql9ttrfuaj70g0vmnv8bosbl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_pZUEfAbwm9JUA2XbuJuYFQQXiz9-kZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347850379872-9f6mhms0ql9ttrfuaj70g0vmnv8bosbl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

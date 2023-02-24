@@ -9,7 +9,7 @@ class ReservationApi {
   Future<List<Reservation>> getAll() async {
     var res = await get(
       Uri.parse('$apiUrl/reservation'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     if (res.statusCode != 200) {
@@ -24,26 +24,10 @@ class ReservationApi {
         .toList();
   }
 
-  Future<Reservation> getById(int reservationId) async {
-    var res = await get(
-      Uri.parse('$apiUrl/reservation/$reservationId'),
-      headers: getHeaders(),
-    );
-
-    if (res.statusCode != 200) {
-      throw json.decode(res.body)['message'].toString();
-    }
-
-    var jsonResponse = json.decode(res.body);
-    var data = jsonResponse['reservation'];
-
-    return Reservation.fromJson(data);
-  }
-
   Future<Response> create(Map<String, dynamic> reservation) async {
     var res = await post(
         Uri.parse('$apiUrl/reservation'),
-        headers: getHeaders(),
+        headers: await getHeaders(),
         body: jsonEncode({
           'user_id': reservation['user_id'],
           'location_id': reservation['location_id'],
@@ -65,7 +49,7 @@ class ReservationApi {
   Future<Response> edit(int reservationId, Map<String, dynamic> reservation) async {
     var res = patch(
       Uri.parse('$apiUrl/reservation/$reservationId'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
       body: jsonEncode({
         'user_id': reservation['user_id'],
         'location_id': reservation['location_id'],
@@ -87,7 +71,7 @@ class ReservationApi {
   Future<Response> deleteById(int reservationId) async {
     var res = await delete(
       Uri.parse('$apiUrl/reservation/$reservationId'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     return res;

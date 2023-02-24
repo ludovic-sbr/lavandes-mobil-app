@@ -9,7 +9,7 @@ class UserApi {
   Future<List<User>> getAll() async {
     var res = await get(
       Uri.parse('$apiUrl/user'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     if (res.statusCode != 200) {
@@ -27,7 +27,7 @@ class UserApi {
   Future<Response> edit(int userId, Map<String, dynamic> reservation) async {
     var res = patch(
         Uri.parse('$apiUrl/user/$userId'),
-        headers: getHeaders(),
+        headers: await getHeaders(),
         body: jsonEncode({
           'firstname': reservation['firstname'],
           'lastname': reservation['lastname'],
@@ -42,7 +42,7 @@ class UserApi {
   Future<Response> deleteById(int userId) async {
     var res = await delete(
       Uri.parse('$apiUrl/user/$userId'),
-      headers: getHeaders(),
+      headers: await getHeaders(),
     );
 
     return res;
